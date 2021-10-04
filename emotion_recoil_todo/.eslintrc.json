@@ -24,5 +24,15 @@
         "@emotion"
     ],
     "rules": {
-    }
+        "@typescript-eslint/no-var-requires": 0
+    },
+    "settings": {
+        "import/resolver": {
+          "alias": {
+            "map": [
+                ["@src", "./src"]
+            ]
+        }
+        }
+      }
 }
