@@ -28,11 +28,11 @@
     },
     "settings": {
         "import/resolver": {
-          "alias": {
-            "map": [
-                ["@src", "./src"]
-            ]
-        }
+            "alias": {
+                "map": [
+                    ["@src", "./src"]
+                ]
+            }
         }
       }
 }
