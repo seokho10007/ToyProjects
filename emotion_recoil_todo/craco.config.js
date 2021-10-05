@@ -6,8 +6,11 @@ module.exports = {
 			plugin: CracoAlias,
 			options: {
 				source: 'tsconfig',
-				tsConfigPath: 'tsconfig.base.json',
+				tsConfigPath: 'tsconfig.extend.json',
 			},
 		},
 	],
+	babel: {
+		presets: ['@emotion/babel-preset-css-prop'],
+	},
 };
