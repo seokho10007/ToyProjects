@@ -4,6 +4,7 @@
       "paths": {
          "@src/*": ["src/*"],
          "@theme/*": ["src/theme/*"],
+         "@pagelist/*": ["src/pages/*"],
          "@pages/*": ["src/components/pages/*"],
          "@atoms/*": ["src/components/UI/atoms/*"],
          "@frames/*": ["src/components/UI/frames/*"],
