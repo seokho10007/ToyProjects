@@ -2,9 +2,10 @@ import '@emotion/react';
 
 declare module '@emotion/react' {
 	export interface Theme {
-		BACKGROUND_COLOR: string;
-		BACKGROUND_COLOR_RGBA: string;
-		PRIMARY_COLOR: string;
+		BACKGROUND_COLOR: {
+			PRIMARY_COLOR: string;
+			SECOND_COLOR: string;
+		};
 		LIGHT_GREY: string;
 		DARK_GREY: string;
 		BP: {
@@ -16,6 +17,9 @@ declare module '@emotion/react' {
 		FONT_SIZE: {
 			PRIMARY_SIZE: string;
 			LOG_SIZE: string;
+		};
+		FONT_COLOR: {
+			PRIMARY_COLOR: string;
 		};
 	}
 }

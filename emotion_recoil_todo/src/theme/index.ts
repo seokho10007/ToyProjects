@@ -1,21 +1,27 @@
+import { Theme } from '@emotion/react';
+
 const breakPoint = {
-	HDPC: '1200px',
+	HDPC: '1400px',
 	PC: '980px',
 	TABLET: '768px',
 	MOBILE: '480px',
 };
 
-export const theme = {
-	BACKGROUND_COLOR: '#e5e5e5',
-	BACKGROUND_COLOR_RGBA: 'rgba(255, 255, 255, 0.4)',
-	PRIMARY_COLOR: '#23374D',
-	LIGHT_GREY: '#B5B5B5',
-	DARK_GREY: '#cccccc',
-	BP: breakPoint,
+export const theme: Theme = {
+	BACKGROUND_COLOR: {
+		PRIMARY_COLOR: '#ffffff',
+		SECOND_COLOR: '#e0e0e0',
+	},
 	FONT_SIZE: {
 		PRIMARY_SIZE: '14px',
 		LOG_SIZE: '20px',
 	},
+	FONT_COLOR: {
+		PRIMARY_COLOR: 'black',
+	},
+	LIGHT_GREY: '#B5B5B5',
+	DARK_GREY: '#cccccc',
+	BP: breakPoint,
 };
 
 export type ThemeType = typeof theme;

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export default styled.div`
-	width: 1200px;
+	width: 1400px;
 	margin: 0 auto;
 	box-sizing: border-box;
 

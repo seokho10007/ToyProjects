@@ -12,16 +12,16 @@ const App: React.FC = () => {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<GlobalStyle theme={theme} />
-				<AppLayout>
-					<BrowserRouter>
+				<BrowserRouter>
+					<GlobalStyle theme={theme} />
+					<AppLayout>
 						<Switch>
 							<Route path="/" component={Main} exact />
 							<Route path="/signin" component={Signin} exact />
 							<Route path="/signup" component={Signup} exact />
 						</Switch>
-					</BrowserRouter>
-				</AppLayout>
+					</AppLayout>
+				</BrowserRouter>
 			</ThemeProvider>
 		</>
 	);
