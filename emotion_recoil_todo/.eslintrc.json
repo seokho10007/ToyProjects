@@ -24,13 +24,24 @@
         "@emotion"
     ],
     "rules": {
-        "@typescript-eslint/no-var-requires": 0
+        "@typescript-eslint/no-var-requires": 0,
+        "@typescript-eslint/explicit-module-boundary-types": 0
     },
     "settings": {
         "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            },
             "alias": {
                 "map": [
-                    ["@src", "./src"]
+                    ["@src", "./src"],
+                    ["@theme", "./src/theme"],
+                    ["@pagelist", "./src/pages"],
+                    ["@pages", "./src/components/pages"],
+                    ["@atoms", "./src/components/UI/atoms"],
+                    ["@frames", "./src/components/UI/frames"],
+                    ["@molecules", "./src/components/UI/molecules"],
+                    ["@organisms", "./src/components/UI/organisms"]
                 ]
             }
         }
