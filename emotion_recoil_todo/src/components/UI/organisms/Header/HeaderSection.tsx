@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import RowFrame from '@frames/RowFrame';
 import Logo from '@molecules/Logo';
+import Nav from '@molecules/Nav';
 
 const StyledHeaderSection = styled.header`
 	position: sticky;
@@ -23,7 +24,7 @@ const HeaderSection: React.FC = () => (
 		<StyledHeaderSection>
 			<RowFrame>
 				<Logo logoName={'TODO LIST'} />
-				<div>nav</div>
+				<Nav />
 			</RowFrame>
 		</StyledHeaderSection>
 	</>
