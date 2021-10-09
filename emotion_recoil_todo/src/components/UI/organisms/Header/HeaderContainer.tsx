@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderSection from '@organisms/HeaderSection';
+import HeaderSection from './HeaderSection';
 
 const HeaderContainer: React.FC = () => {
 	return (
