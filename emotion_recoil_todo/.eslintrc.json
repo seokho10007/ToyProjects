@@ -25,7 +25,8 @@
     ],
     "rules": {
         "@typescript-eslint/no-var-requires": 0,
-        "@typescript-eslint/explicit-module-boundary-types": 0
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "react-hooks/exhaustive-deps": [ "warn", { "additionalHooks": "useRecoilCallback" } ]
     },
     "settings": {
         "import/resolver": {

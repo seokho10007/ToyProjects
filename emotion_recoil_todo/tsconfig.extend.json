@@ -9,7 +9,8 @@
          "@atoms/*": ["src/components/UI/atoms/*"],
          "@frames/*": ["src/components/UI/frames/*"],
          "@molecules/*": ["src/components/UI/molecules/*"],
-         "@organisms/*": ["src/components/UI/organisms/*"]
+         "@organisms/*": ["src/components/UI/organisms/*"],
+         "@states/*": ["src/states/*"]
       }
    }
 }
