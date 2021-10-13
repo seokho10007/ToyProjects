@@ -10,7 +10,7 @@ const StyledDefaultButton = styled.button`
 
 interface ButtonProps {
 	name: string;
-	onClick?: () => void;
+	onClick?: (e?: React.MouseEvent) => void;
 	type?: 'button' | 'submit';
 }
 
