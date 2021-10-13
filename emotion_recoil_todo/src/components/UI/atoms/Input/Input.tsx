@@ -10,7 +10,6 @@ interface IProps {
 
 const StyledInput = styled.input`
 	border: none;
-	cursor: pointer;
 	&:focus {
 		outline: none;
 	}

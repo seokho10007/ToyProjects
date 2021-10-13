@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from '@theme/.';
 import Main from '@pagelist/main';
@@ -12,7 +12,7 @@ const App: React.FC = () => {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<BrowserRouter>
+				<Router>
 					<GlobalStyle theme={theme} />
 					<AppLayout>
 						<Switch>
@@ -21,7 +21,7 @@ const App: React.FC = () => {
 							<Route path="/signup" component={Signup} exact />
 						</Switch>
 					</AppLayout>
-				</BrowserRouter>
+				</Router>
 			</ThemeProvider>
 		</>
 	);

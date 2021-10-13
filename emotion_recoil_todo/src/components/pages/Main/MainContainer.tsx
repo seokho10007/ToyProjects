@@ -1,7 +1,10 @@
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import React from 'react';
 import RowFrame from '@frames/RowFrame';
 import TodoItem from '@molecules/TodoItem/TodoItem';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { allTodoList, completedTodoList, incompletedTodoList } from '@states/Selectors';
+import { itemDummy } from '@states/dummy';
 
 const StyledMainContainer = styled.div`
 	display: flex;
@@ -24,12 +27,20 @@ const StyledMainContainer = styled.div`
 `;
 
 const MainContainer: React.FC = () => {
+	const setList = useSetRecoilState(allTodoList);
+	const completed = useRecoilValue(completedTodoList);
+	const incomplete = useRecoilValue(incompletedTodoList);
+
+	useEffect(() => {
+		setList(itemDummy);
+	}, [setList]);
+
 	return (
 		<>
 			<StyledMainContainer>
 				<RowFrame>
-					<TodoItem title="오늘 할 일" />
-					<TodoItem title="완료" />
+					<TodoItem title="오늘 할 일" item={incomplete} />
+					<TodoItem title="완료" item={completed} />
 				</RowFrame>
 			</StyledMainContainer>
 		</>
