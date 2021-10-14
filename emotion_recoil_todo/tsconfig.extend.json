@@ -10,7 +10,8 @@
          "@frames/*": ["src/components/UI/frames/*"],
          "@molecules/*": ["src/components/UI/molecules/*"],
          "@organisms/*": ["src/components/UI/organisms/*"],
-         "@states/*": ["src/states/*"]
+         "@states/*": ["src/states/*"],
+         "@api/*": ["src/api/*"]
       }
    }
 }
