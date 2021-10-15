@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import RowFrame from '@frames/RowFrame';
-import TodoItem from '@molecules/TodoItem/TodoItem';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import TodoItem from '@molecules/TodoItem';
 import { allTodoList, completedTodoList, incompletedTodoList } from '@states/Selectors';
 import { itemDummy } from '@states/dummy';
 
