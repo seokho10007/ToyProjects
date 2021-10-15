@@ -11,7 +11,9 @@
          "@molecules/*": ["src/components/UI/molecules/*"],
          "@organisms/*": ["src/components/UI/organisms/*"],
          "@states/*": ["src/states/*"],
-         "@api/*": ["src/api/*"]
+         "@api/*": ["src/api/*"],
+         "@icons/*": ["src/components/icon/*"],
+         "@hooks/*": ["src/hooks/*"]
       }
    }
 }
