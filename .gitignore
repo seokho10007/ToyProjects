@@ -1,5 +1,5 @@
 # OS
 .DS_Store
 
-./nestjs-test
-./recoil-state-test
+./nestjs-test/*
+./recoil-state-test/*
