@@ -27,6 +27,7 @@
     "class-validator": "^0.13.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
+    "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",

@@ -17,7 +17,7 @@ export const signinUser = (data) => axios.post('auth/signin', data);
 
 export const getUserInfo = async () => {
 	const tokenVerifi = await axios.post('auth/refrash');
-	console.log(tokenVerifi.data);
+
 	if (!tokenVerifi.data?.pass) {
 		console.error(tokenVerifi.data.error);
 		return false;
@@ -26,16 +26,7 @@ export const getUserInfo = async () => {
 	return await axios
 		.get('users/profile')
 		.then((res) => res.data)
-		.catch((e) => false);
+		.catch((e) => e);
 };
 
 export const signoutUser = () => axios.post('auth/signout');
-
-export const setHeaderCookie = (req) => {
-	const cookie = req?.headers?.cookie;
-	if (req && cookie) {
-		axios.defaults.headers.Cookie = cookie;
-		return cookie;
-	}
-	return;
-};
