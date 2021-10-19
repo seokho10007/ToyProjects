@@ -5,11 +5,12 @@ const StyledPrimaryButton = styled.button`
 	border: 1px solid #ccc;
 	border-radius: 3px;
 	font-weight: 300;
+	cursor: pointer;
 `;
 
 interface ButtonProps {
 	name: string;
-	onClick?: () => void;
+	onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
 	type?: 'button' | 'submit';
 }
 
