@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import Input from '@atoms/Input';
 import Button from '@atoms/Button/DefaultButton';
-import { addTodoList } from '@states/Selectors';
-import { constSelector, useRecoilValue } from 'recoil';
+import { addList } from '@api/todos';
+import { allTodoList } from '@states/Selectors';
+import { userState } from '@states/Atoms';
 
 const StyledInputBox = styled.div`
 	width: 100%;
@@ -42,7 +44,8 @@ interface Props {
 
 const InputBox = ({ type }: Props) => {
 	const [text, setText] = useState('');
-	const a = useRecoilValue(addTodoList({ text, type }));
+	const setTodoList = useSetRecoilState(allTodoList);
+	const userInfo = useRecoilValue(userState);
 
 	const onChangeText = useCallback(
 		(e) => {
@@ -56,14 +59,21 @@ const InputBox = ({ type }: Props) => {
 		},
 		[text],
 	);
+
 	const onClickBtn = useCallback(
-		(e) => {
+		async (e) => {
 			e.preventDefault();
+			if (userInfo === null) return alert('로그인후 사용가능합니다.');
 			if (!text.length) return alert('입력되지 않았습니다.');
 
-			console.log('실행', text, type, a);
+			const completed = type === '완료' ? true : false;
+
+			addList(text, completed).then((todo: any) => {
+				setTodoList([todo]);
+			});
+			setText('');
 		},
-		[text, type],
+		[setTodoList, text, type, userInfo],
 	);
 
 	return (
