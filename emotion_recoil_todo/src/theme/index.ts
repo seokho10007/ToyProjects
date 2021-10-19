@@ -19,6 +19,10 @@ export const theme: Theme = {
 	FONT_COLOR: {
 		PRIMARY_COLOR: 'black',
 	},
+	BUTTON_COLOR: {
+		PRIMARY_COLOR: '#cccccc',
+		SECOND_COLOR: '#2c90ff',
+	},
 	LIGHT_GREY: '#B5B5B5',
 	DARK_GREY: '#cccccc',
 	BP: breakPoint,
