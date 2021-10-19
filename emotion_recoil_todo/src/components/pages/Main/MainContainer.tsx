@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import RowFrame from '@frames/RowFrame';
 import TodoItem from '@molecules/TodoItem';
 import { allTodoList, completedTodoList, incompletedTodoList } from '@states/Selectors';
-import { itemDummy } from '@states/dummy';
+import { getTodos } from '@api/todos';
 
 const StyledMainContainer = styled.div`
 	display: flex;
@@ -27,13 +27,15 @@ const StyledMainContainer = styled.div`
 `;
 
 const MainContainer: React.FC = () => {
-	const setList = useSetRecoilState(allTodoList);
+	const setTodoList = useSetRecoilState(allTodoList);
 	const completed = useRecoilValue(completedTodoList);
 	const incomplete = useRecoilValue(incompletedTodoList);
 
 	useEffect(() => {
-		setList(itemDummy);
-	}, [setList]);
+		getTodos().then((data: any) => {
+			setTodoList(data);
+		});
+	}, [setTodoList]);
 
 	return (
 		<>
