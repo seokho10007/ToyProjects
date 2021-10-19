@@ -4,7 +4,7 @@ import React from 'react';
 interface IProps {
 	type?: 'text' | 'password';
 	placeholder?: string;
-	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onChange: (e?: React.ChangeEvent<HTMLInputElement>) => void;
 	value: string;
 }
 

@@ -2,16 +2,14 @@ import { atom } from 'recoil';
 
 export interface TodoProps {
 	id: number;
-	title: string;
-	createdAt: string;
+	content: string;
 	completed: boolean;
+	createdAt?: string;
 }
 
 export interface UserProps {
-	id: number;
-	user_id: string;
-	nickname: string;
-	content: TodoProps[];
+	id?: number;
+	username?: string;
 }
 
 export const todoState = atom<TodoProps[]>({
@@ -19,12 +17,7 @@ export const todoState = atom<TodoProps[]>({
 	default: [],
 });
 
-export const userState = atom<UserProps>({
+export const userState = atom<UserProps | null>({
 	key: 'user',
-	default: {
-		id: 0,
-		user_id: '',
-		nickname: '',
-		content: [],
-	},
+	default: null,
 });

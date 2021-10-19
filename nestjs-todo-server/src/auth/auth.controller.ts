@@ -29,7 +29,6 @@ export class AuthController {
   @Post('/signin')
   @HttpCode(200)
   async signin(
-    @Req() req: Request,
     @User() user: TokenUser,
     @Res({ passthrough: true }) res: Response,
   ) {
@@ -52,7 +51,7 @@ export class AuthController {
   ) {
     if (!user) return { pass: false };
 
-    const isVerifiedToken = await this.authService.verifyRefresh(user.id);
+    const isVerifiedToken = await this.authService.verifyRefresh(user);
     if (!isVerifiedToken)
       return { pass: false, error: 'expried refresh token' };
 

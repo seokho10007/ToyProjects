@@ -6,6 +6,7 @@ const StyledDefaultButton = styled.button`
 	border-radius: 3px;
 	font-weight: 300;
 	background-color: #f2f2f2;
+	cursor: pointer;
 `;
 
 interface ButtonProps {

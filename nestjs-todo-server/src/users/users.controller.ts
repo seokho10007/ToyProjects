@@ -1,9 +1,8 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { ExpriedJwtAuthGuard, JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
 import { UserService } from './users.service';
 import { TokenUser, User } from '@/decorators/user.decorator';
 import { CreateUserDto } from './dto/createUsers.dto';
-import { Request } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -22,7 +21,7 @@ export class UsersController {
       const user = await this.usersService.getById(_user.id);
       if (!user) return { pass: false };
 
-      return { pass: true, name: `${user}` };
+      return { pass: true, user: { username: user.username } };
     } else {
       return { pass: false, err: '로그인을 해주세요' };
     }

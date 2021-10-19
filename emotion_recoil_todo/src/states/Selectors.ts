@@ -1,5 +1,5 @@
-import { DefaultValue, selector, selectorFamily } from 'recoil';
-import { TodoProps, todoState } from '@states/Atoms';
+import { DefaultValue, selector } from 'recoil';
+import { TodoProps, todoState, userState } from '@states/Atoms';
 
 export const allTodoList = selector<TodoProps[]>({
 	key: 'allTodoList',
@@ -8,15 +8,7 @@ export const allTodoList = selector<TodoProps[]>({
 
 		return filter;
 	},
-	set: ({ set }, new_item) => {
-		set(todoState, (prev) => {
-			const list = [...prev];
-
-			if (!(new_item instanceof DefaultValue)) list.push(...new_item);
-
-			return list;
-		});
-	},
+	set: ({ set }, new_item) => set(todoState, () => new_item),
 });
 
 export const completedTodoList = selector<TodoProps[]>({
@@ -37,22 +29,44 @@ export const incompletedTodoList = selector<TodoProps[]>({
 	},
 });
 
-interface Props {
-	text: string;
-	type: string;
-}
+export const signoutStatas = selector({
+	key: 'signoutStatas',
+	get: ({ get }) => get(userState),
+	set: ({ reset }) => {
+		reset(userState);
+		reset(todoState);
 
-type SelectorMapper<Type> = {
-	[Property in keyof Type]: Type[Property];
-};
+		return;
+	},
+});
 
-export const addTodoList = selectorFamily<TodoProps[], SelectorMapper<Props>>({
-	key: 'addTodoList',
-	get:
-		({ text, type }: Props) =>
-		({ get }) => {
-			console.log(text, type, '시래');
+export const deleteTodoItem = selector<TodoProps>({
+	key: 'deleteTodoItem',
+	get: ({ get }) => get(todoState)[0],
+	set: ({ get, set }, item) => {
+		if (!(item instanceof DefaultValue)) {
+			const filter = get(todoState).filter((el) => el.id !== item.id);
 
-			return get(todoState);
-		},
+			set(todoState, () => filter);
+		}
+	},
+});
+
+export const updateTodoItem = selector<TodoProps>({
+	key: 'updateTodoItem',
+	get: ({ get }) => get(todoState)[0],
+	set: ({ get, set }, item) => {
+		if (!(item instanceof DefaultValue)) {
+			const filter = get(todoState).map((el) => {
+				if (el.id === item.id) {
+					const newTodo = JSON.parse(JSON.stringify(el));
+					newTodo.completed = !el.completed;
+					return newTodo;
+				}
+				return el;
+			});
+
+			set(todoState, () => filter);
+		}
+	},
 });

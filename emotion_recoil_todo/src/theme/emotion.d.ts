@@ -14,6 +14,10 @@ declare module '@emotion/react' {
 			TABLET: string;
 			MOBILE: string;
 		};
+		BUTTON_COLOR: {
+			PRIMARY_COLOR: string;
+			SECOND_COLOR: string;
+		};
 		FONT_SIZE: {
 			PRIMARY_SIZE: string;
 			LOG_SIZE: string;
