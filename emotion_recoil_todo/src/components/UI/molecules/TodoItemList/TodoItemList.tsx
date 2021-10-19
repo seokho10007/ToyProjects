@@ -5,18 +5,16 @@ import Item from './Item';
 
 const StyledItemList = styled.div`
 	width: 100%;
-	height: 70%;
+	height: 300px;
+
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 	box-sizing: border-box;
 	margin-top: 10px;
 	& > div {
 		width: 100%;
-		height: 100%;
 
-		overflow: scroll;
+		overflow: auto;
 		overflow-x: hidden;
 		&::-webkit-scrollbar {
 			width: 0;
@@ -39,7 +37,7 @@ const TodoItemList = ({ list }: Props) => {
 				{list[0] ? (
 					<div>
 						{list.map((el) => (
-							<Item item={el} key={el.id + el.title} />
+							<Item item={el} key={el.id + el.content} />
 						))}
 					</div>
 				) : (
