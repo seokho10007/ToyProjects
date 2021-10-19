@@ -1,9 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import styled from '@emotion/styled';
 import Card from '@atoms/Card';
 import useInput from '@hooks/useInput';
 import Input from '@atoms/Input';
 import Button from '@atoms/Button/DefaultButton';
+import { signin } from '@api/users';
+import { useSetRecoilState } from 'recoil';
+import { useHistory } from 'react-router';
+import { userState } from '@states/Atoms';
 
 const StyledSignInForm = styled.div`
 	width: 100%;
@@ -13,6 +17,7 @@ const StyledSignInForm = styled.div`
 	padding: 40px 0;
 
 	& > div {
+		min-width: 300px;
 		width: 40%;
 		display: flex;
 		flex-direction: column;
@@ -39,6 +44,7 @@ const StyledSignInForm = styled.div`
 	}
 	@media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
 		& > div {
+			min-width: 0;
 			width: 100%;
 			& input {
 				width: 100%;
@@ -48,16 +54,21 @@ const StyledSignInForm = styled.div`
 `;
 
 const SignInForm = () => {
+	const setUserInfo = useSetRecoilState(userState);
 	const { value: userId, handler: onChangeId } = useInput('');
 	const { value: password, handler: onChangePassword } = useInput('');
+	const history = useHistory();
 
 	const onSignUp = useCallback(
 		(e) => {
 			e.preventDefault();
 
-			console.log(userId, password);
+			signin({ userId, password }).then((username) => {
+				if (username) setUserInfo({ username });
+				history.push('/');
+			});
 		},
-		[userId, password],
+		[userId, password, history, setUserInfo],
 	);
 
 	return (
@@ -74,4 +85,4 @@ const SignInForm = () => {
 	);
 };
 
-export default SignInForm;
+export default memo(SignInForm);
