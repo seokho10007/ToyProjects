@@ -5,10 +5,12 @@ import {
   DataType,
   Model,
   Table,
+  HasMany,
 } from 'sequelize-typescript';
 import * as bcrypt from 'bcrypt';
 import { verify } from 'jsonwebtoken';
 import { jwtContents } from '@auth/contents';
+import { Todos } from '@/todos/todos.model';
 
 const BCRYPT_SALT = 10 as const;
 
@@ -28,6 +30,9 @@ export class Users extends Model<Users> {
 
   @Column({ type: DataType.STRING(400), allowNull: true })
   refreshToken?: string;
+
+  @HasMany(() => Todos)
+  todos: Todos[];
 
   @BeforeCreate
   @BeforeUpdate
