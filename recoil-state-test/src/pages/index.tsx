@@ -3,7 +3,9 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import TestList from '../components/UI/m/TestList';
 import { setHomeData, testInfo, TestProps, userState } from '../states/test';
 import TestForm from '../components/UI/m/TestForm';
-import { getUserData, getUserInfo, setHeaderCookie, signoutUser } from '../api';
+import { getUserData, getUserInfo, signoutUser } from '../api';
+import axios from 'axios';
+import { GetServerSideProps } from 'next';
 
 interface Props {
 	test: TestProps[];
@@ -48,15 +50,18 @@ const Home: FC<Props> = ({ test, user }) => {
 
 export default Home;
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
 	const propsData = {};
 
-	const result = await setHeaderCookie(context.req);
+	const cookie = context.req?.headers?.cookie;
+
+	if (cookie) axios.defaults.headers.cookie = cookie;
+
+	console.log(cookie);
+
 	const test = (await getUserData()).data;
 
 	const user = await getUserInfo();
-
-	console.log('@@@', user);
 
 	propsData['test'] = test;
 

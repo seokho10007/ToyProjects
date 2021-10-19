@@ -12,6 +12,8 @@ const setAuth = (context: ExecutionContext) => {
 
   if (authCookie) req.headers.authorization = `Bearer ${authCookie}`;
 
+  console.log(req.headers.authorization);
+
   return req;
 };
 
@@ -21,7 +23,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     super();
   }
   handleRequest(err: unknown, user: any, info: any) {
-    console.log(user);
+    console.log('유저', user);
     if (err || !user) {
       throw err || new UnauthorizedException(info.message);
     }
@@ -40,6 +42,7 @@ export class ExpriedJwtAuthGuard extends AuthGuard('jwt-expried') {
   }
 
   handleRequest(err: unknown, user: any) {
+    console.log('@@@@@', user);
     return user;
   }
 

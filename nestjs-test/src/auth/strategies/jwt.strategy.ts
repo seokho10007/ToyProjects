@@ -1,6 +1,6 @@
+import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
 import { jwtContents } from '../contents';
 
 // 토큰 유효성 검사
@@ -18,7 +18,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any) {
+  async validate(payload) {
+    console.log('페이로드만료확인', payload);
+
     return { id: payload.id };
   }
 }
@@ -37,8 +39,8 @@ export class ExpriedJwtStrategy extends PassportStrategy(
     });
   }
 
-  validate(payload: any) {
-    console.log(payload);
+  validate(payload) {
+    console.log('페이로드', payload);
     return { id: payload.id };
   }
 }

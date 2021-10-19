@@ -19,7 +19,6 @@ export class TestController {
   @UseGuards(JwtAuthGuard)
   @Post()
   addTest(@Body() body) {
-    console.log(body);
     return this.testService.addTest(body);
   }
 }
