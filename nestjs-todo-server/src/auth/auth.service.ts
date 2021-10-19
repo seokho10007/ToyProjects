@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   async signin(payload) {
-    const accessToken = this.jwtService.sign(payload, { expiresIn: '30s' });
+    const accessToken = this.jwtService.sign(payload, { expiresIn: '10m' });
     const refreshToken = this.jwtService.sign(payload, { expiresIn: '14d' });
 
     await this.userService.updateRefreshToken(payload.id, refreshToken);
