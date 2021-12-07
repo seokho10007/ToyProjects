@@ -75,7 +75,6 @@ export class AuthController {
     if (_user) {
       await this.userService.updateRefreshToken(_user.id, null);
 
-      req.logout();
       res.clearCookie(jwtContents.header);
       res.send('logout');
     }

@@ -16,7 +16,6 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Get('/profile')
   async getUserInfo(@User() _user: TokenUser) {
-    console.log(_user, 'tlfgod');
     if (_user) {
       const user = await this.usersService.getById(_user.id);
       if (!user) return { pass: false };
