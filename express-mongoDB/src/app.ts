@@ -1,9 +1,10 @@
+require('dotenv').config();
+
 import express = require('express');
 const { MongoClient } = require('mongodb');
 
 const app = express();
-const uri =
-	'mongodb+srv://sukho1007:wltjrgh1007@simple-board-cluster.aat6r.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const uri = `mongodb+srv://${process.env.DB_ID}:${process.env.DB_PASSWORD}@simple-board-cluster.aat6r.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(express.static('public'));
