@@ -1,15 +1,11 @@
 import { Schema } from 'mongoose';
 import shortId from './types/shortId';
+import * as bcrypt from 'bcrypt';
+import { verify } from 'jsonwebtoken';
+import { jwtContents } from '@src/utils/contents';
+import { IUser } from '@src/types/User';
 
-interface IUser {
-	shortId: string;
-	email: string;
-	password: string;
-	firstName: string;
-	lastName: string;
-	age: number;
-	phone: number;
-}
+const BCRYPT_SALT = 10 as const;
 
 const UserSchema = new Schema<IUser>(
 	{
@@ -40,10 +36,31 @@ const UserSchema = new Schema<IUser>(
 			type: Number,
 			required: true,
 		},
+		refreshToken: {
+			type: String,
+			default: null,
+		},
 	},
 	{
 		timestamps: true,
 	},
 );
+
+// statics this가 모델을 가르킴
+UserSchema.statics.hashPassword = async function (userData: IUser) {
+	if (!userData.password) return;
+	userData.password = await bcrypt.hash(userData.password, BCRYPT_SALT);
+};
+
+// this가 생성된 인스턴트를 가르킴
+UserSchema.methods.comparePassword = async function (aPassword: string) {
+	return await bcrypt.compare(aPassword, this.password);
+};
+
+UserSchema.methods.verifyRefresh = function () {
+	if (!this.refreshToken) return false;
+	const result = verify(this.refreshToken, jwtContents.secret);
+	return Boolean(result);
+};
 
 export default UserSchema;
