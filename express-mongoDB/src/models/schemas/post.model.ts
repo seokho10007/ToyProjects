@@ -7,7 +7,7 @@ interface IPost {
 	content: string;
 	author: string;
 }
-const PostSchema = new Schema<IPost>(
+export const PostSchema = new Schema<IPost>(
 	{
 		shortId,
 		title: String,
@@ -18,5 +18,3 @@ const PostSchema = new Schema<IPost>(
 		timestamps: true,
 	},
 );
-
-export default PostSchema;
