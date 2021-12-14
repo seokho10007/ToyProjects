@@ -7,7 +7,7 @@ import { IUser } from '@src/types/User';
 
 const BCRYPT_SALT = 10 as const;
 
-const UserSchema = new Schema<IUser>(
+export const UserSchema = new Schema<IUser>(
 	{
 		shortId,
 		email: {
@@ -62,5 +62,3 @@ UserSchema.methods.verifyRefresh = function () {
 	const result = verify(this.refreshToken, jwtContents.secret);
 	return Boolean(result);
 };
-
-export default UserSchema;
