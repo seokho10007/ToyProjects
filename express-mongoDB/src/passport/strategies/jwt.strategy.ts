@@ -1,22 +1,23 @@
+import { Strategy as JStrategy, ExtractJwt, VerifiedCallback } from 'passport-jwt';
 import { userService } from '@src/services/user.service';
 import { jwtContents } from '@src/utils/contents';
-import { Strategy as JStrategy, ExtractJwt } from 'passport-jwt';
 
-export const JwtStrategy = new JStrategy(
-	{
-		jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-		ignoreExpiration: false,
-		secretOrKey: jwtContents.secret,
-	},
-	async (payload, done) => {
-		try {
-			if (!payload) return done(null, false);
+const JwtOpt = {
+	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+	ignoreExpiration: true,
+	secretOrKey: jwtContents.secret,
+};
 
-			const user = await userService.getByShortId(payload.id);
+const JwtVerify = async (payload: any, done: VerifiedCallback) => {
+	try {
+		if (!payload) return done(null, false);
 
-			return done(null, user);
-		} catch (e) {
-			done(e, false);
-		}
-	},
-);
+		const user = await userService.getByShortId(payload.id);
+
+		return done(null, user);
+	} catch (e) {
+		done(e, false);
+	}
+};
+
+export const JwtStrategy = new JStrategy(JwtOpt, JwtVerify);

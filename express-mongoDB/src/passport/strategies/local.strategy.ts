@@ -8,13 +8,13 @@ export const LocalStrategy = new LStrategy(
 	},
 	async (email, password, done) => {
 		try {
-			const user = await authService.validateUser(email, password);
+			const { user, message } = await authService.validateUser(email, password);
 
-			if (!user) return done(null, false, { message: '오류가 발생했습니다.' });
+			if (!user) return done(null, false, { message: message || '' });
 
 			return done(null, user);
 		} catch (error) {
-			return done(error, false);
+			return done(error, null);
 		}
 	},
 );
