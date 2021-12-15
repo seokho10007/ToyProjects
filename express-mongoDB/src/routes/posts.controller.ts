@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import { Post } from '../models';
 
 const router = Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
 	res.send('posts');
 });
 

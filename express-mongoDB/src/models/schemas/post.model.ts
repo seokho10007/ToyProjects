@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import shortId from './types/shortId';
+import { shortId } from './types/shortId';
 
 interface IPost {
 	shortId: string;

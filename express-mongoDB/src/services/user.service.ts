@@ -1,9 +1,9 @@
-import { User } from '@src/models';
+import { Tag, User } from '@src/models';
 import { ICoreResponse } from '@src/types/CoreResponse';
 import { IUser, IUserData } from '@src/types/User';
 
 export class UserService {
-	constructor(private userModel: typeof User) {}
+	constructor(private userModel: typeof User, private tagModel: typeof Tag) {}
 
 	async createUser(userData: IUserData): Promise<ICoreResponse | void> {
 		try {
@@ -11,8 +11,9 @@ export class UserService {
 
 			if (user) return { ok: false, err: '이미 가입된 이메일 입니다.' };
 
-			await this.userModel.create(userData);
+			const { tags } = userData;
 
+			await this.userModel.create({ ...userData });
 			return { ok: true };
 		} catch (err: any) {
 			return { ok: false, err };
@@ -24,7 +25,7 @@ export class UserService {
 	}
 
 	async getByShortId(shortId: string): Promise<IUser | null> {
-		return await this.userModel.findOne({ shortId }, { shortId: 1, password: 1, email: 1 });
+		return await this.userModel.findOne({ shortId }, { shortId: 1 });
 	}
 
 	async updateRefreshToken(shortId: string, refreshToken: string | null): Promise<void> {
@@ -32,4 +33,4 @@ export class UserService {
 	}
 }
 
-export const userService = new UserService(User);
+export const userService = new UserService(User, Tag);

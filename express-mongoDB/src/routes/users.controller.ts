@@ -1,17 +1,20 @@
+import { Router } from 'express';
 import { userService } from '@src/services/user.service';
 import { ICoreResponse } from '@src/types/CoreResponse';
-import { Router } from 'express';
+import passport from 'passport';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-	res.send('respond with a resource');
-});
-
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', async (req, res) => {
 	const result = (await userService.createUser(req.body)) as ICoreResponse;
 
 	res.json(result);
+});
+
+router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+	console.log('@@@', req.user);
+
+	res.json(req.user);
 });
 
 export default router;

@@ -8,13 +8,13 @@ export class AuthService {
 
 	async validateUser(email: string, password: string) {
 		const user = await this.userService.getByEmail(email);
+
 		const isCompare = await user?.comparePassword(password);
 
-		if (!user || (user && isCompare)) return null;
+		if (!user) return { message: '유저가 존재하지 않습니다.' };
+		if (!isCompare) return { message: '비밀번호가 틀립니다.' };
 
-		console.log('------');
-
-		return await this.userService.getByShortId(user.shortId);
+		return { user: await this.userService.getByShortId(user.shortId) };
 	}
 
 	async signin(payload: any) {
@@ -22,14 +22,16 @@ export class AuthService {
 			expiresIn: '5m',
 		});
 
-		const refreshToken = this.jwtService.sign(payload, jwtContents.secret, { expiresIn: '14d' });
+		const refreshToken = this.jwtService.sign(payload, jwtContents.secret, {
+			expiresIn: '14d',
+		});
 
-		await this.userService.updateRefreshToken(payload, refreshToken);
+		await this.userService.updateRefreshToken(payload.id, refreshToken);
 		return encryptValue(accessToken);
 	}
 
 	async verifyRefresh(payload: any) {
-		const user = await this.userService.getByShortId(payload);
+		const user = await this.userService.getByShortId(payload.id);
 
 		if (!user) return false;
 

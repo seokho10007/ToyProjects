@@ -1,9 +1,10 @@
 import { Schema } from 'mongoose';
-import shortId from './types/shortId';
+import { shortId } from './types/shortId';
 import * as bcrypt from 'bcrypt';
 import { verify } from 'jsonwebtoken';
 import { jwtContents } from '@src/utils/contents';
 import { IUser } from '@src/types/User';
+import { TagSchema } from './tag.model';
 
 const BCRYPT_SALT = 10 as const;
 
@@ -40,6 +41,7 @@ export const UserSchema = new Schema<IUser>(
 			type: String,
 			default: null,
 		},
+		tags: [TagSchema],
 	},
 	{
 		timestamps: true,
