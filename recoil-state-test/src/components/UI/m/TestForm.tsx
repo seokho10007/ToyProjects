@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createTest } from '../../../api';
 
 const TestForm = ({ test, setTest }) => {
@@ -28,6 +28,16 @@ const TestForm = ({ test, setTest }) => {
 			// setTest([...test, ...testData.data.testData]);
 		}
 	}, [test_id, name, auth, context, setTest, test]);
+
+	const onScroll = () => {
+		console.log(window.screenY, '@@@');
+	};
+	useEffect(() => {
+		window.addEventListener('scroll', onScroll);
+		return () => {
+			window.removeEventListener('scroll', onScroll);
+		};
+	}, []);
 
 	return (
 		<>
