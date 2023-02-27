@@ -1,15 +1,12 @@
 import React from 'react';
 import { addApolloState, initializeApollo } from '../utils/apollo';
 import { GET_POSTS } from '../queries/getPosts.query';
-import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 
-const Home = (props) => {
-	return (
-		<div>
-			<Link href="/test">테스트 페이지</Link>
-		</div>
-	);
+const Test = () => {
+	const { client, data } = useQuery(GET_POSTS);
+
+	return <div>asdasd</div>;
 };
 
 export const getServerSideProps = async () => {
@@ -17,10 +14,10 @@ export const getServerSideProps = async () => {
 
 	const { data } = await apolloClient.query({
 		query: GET_POSTS,
+		variables: { input: {} },
 	});
 
 	return addApolloState(apolloClient, { props: { posts: data.getPosts.posts } });
-	// return addApolloState(apolloClient, { props: { posts: [] } });
 };
 
-export default Home;
+export default Test;

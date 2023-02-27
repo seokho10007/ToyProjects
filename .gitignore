@@ -3,3 +3,8 @@
 
 ./nestjs-test/*
 ./recoil-state-test/*
+
+node_modules
+
+.env
+
