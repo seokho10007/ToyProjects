@@ -1,23 +1,42 @@
 import React from 'react';
+import Link from 'next/link';
+import { useQuery } from '@apollo/client';
 import { addApolloState, initializeApollo } from '../utils/apollo';
 import { GET_POSTS } from '../queries/getPosts.query';
-import { useQuery } from '@apollo/client';
 
-const Test = () => {
-	const { client, data } = useQuery(GET_POSTS);
+const useCustomQuery = (query, options) => {
+	const result = useQuery(query, options);
 
-	return <div>asdasd</div>;
+	if (!result.data) throw new Error('데이터가 존재하지 않습니다.');
+
+	return result;
 };
 
-export const getServerSideProps = async () => {
+const Test = () => {
+	const { data } = useCustomQuery(GET_POSTS);
+
+	return (
+		<div>
+			<Link href="/">홈 페이지</Link>
+			<div>
+				{data.getPosts.posts.map((post, i) => (
+					<div key={post._id} style={{ marginBottom: '20px' }}>
+						<div>아이디: {post._id}</div>
+						<div>제목: {post.title}</div>
+						<div>카테고리: {post.category}</div>
+					</div>
+				))}
+			</div>
+		</div>
+	);
+};
+
+export const getServerSideProps = async (ctx) => {
 	const apolloClient = initializeApollo();
 
-	const { data } = await apolloClient.query({
-		query: GET_POSTS,
-		variables: { input: {} },
-	});
+	await apolloClient.query({ query: GET_POSTS });
 
-	return addApolloState(apolloClient, { props: { posts: data.getPosts.posts } });
+	return addApolloState(apolloClient, { props: {} });
 };
 
 export default Test;
