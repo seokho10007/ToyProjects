@@ -20,7 +20,6 @@ export const getServerSideProps = async () => {
 	});
 
 	return addApolloState(apolloClient, { props: { posts: data.getPosts.posts } });
-	// return addApolloState(apolloClient, { props: { posts: [] } });
 };
 
 export default Home;
