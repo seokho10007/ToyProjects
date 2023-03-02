@@ -6,7 +6,7 @@ import isEqual from 'lodash/isEqual';
 let apolloClient;
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
-function createApolloClient() {
+const createApolloClient = () => {
 	return new ApolloClient({
 		ssrMode: typeof window === 'undefined',
 		link: new HttpLink({
@@ -15,15 +15,18 @@ function createApolloClient() {
 		}),
 		cache: new InMemoryCache(),
 	});
-}
+};
 
-export function initializeApollo(initialState = null) {
+/**
+ *
+ * @param {*} initialState
+ * @returns {ApolloClient<NormalizedCacheObject>}
+ */
+export const initializeApollo = (initialState = null) => {
 	const _apolloClient = apolloClient ?? createApolloClient();
 
 	if (initialState) {
 		const existingCache = _apolloClient.extract();
-
-		console.log({ initialState, existingCache });
 
 		const data = merge(initialState, existingCache, {
 			arrayMerge: (destinationArray, sourceArray) => [
@@ -38,12 +41,14 @@ export function initializeApollo(initialState = null) {
 	if (!apolloClient) apolloClient = _apolloClient;
 
 	return _apolloClient;
-}
+};
 
-export function useApollo(initialState) {
+export const useApollo = (pageProps) => {
+	const initialState = pageProps?.[APOLLO_STATE_PROP_NAME];
 	const store = useMemo(() => initializeApollo(initialState), [initialState]);
 	return store;
-}
+};
+
 export const addApolloState = (client, pageProps) => {
 	if (pageProps?.props) pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
 
