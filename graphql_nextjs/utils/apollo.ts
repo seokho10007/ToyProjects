@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
+import { AppProps } from 'next/app';
 
-let apolloClient;
+let apolloClient: ApolloClient<NormalizedCacheObject>;
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 const createApolloClient = () => {
@@ -17,11 +18,6 @@ const createApolloClient = () => {
 	});
 };
 
-/**
- *
- * @param {*} initialState
- * @returns {ApolloClient<NormalizedCacheObject>}
- */
 export const initializeApollo = (initialState = null) => {
 	const _apolloClient = apolloClient ?? createApolloClient();
 
@@ -43,13 +39,13 @@ export const initializeApollo = (initialState = null) => {
 	return _apolloClient;
 };
 
-export const useApollo = (pageProps) => {
+export const useApollo = (pageProps: AppProps['pageProps']) => {
 	const initialState = pageProps?.[APOLLO_STATE_PROP_NAME];
 	const store = useMemo(() => initializeApollo(initialState), [initialState]);
 	return store;
 };
 
-export const addApolloState = (client, pageProps) => {
+export const addApolloState = (client: ApolloClient<NormalizedCacheObject>, pageProps: AppProps['pageProps']) => {
 	if (pageProps?.props) pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
 
 	return pageProps;

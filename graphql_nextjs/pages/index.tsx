@@ -1,10 +1,9 @@
 import React from 'react';
+import Link from 'next/link';
 import { addApolloState, initializeApollo } from '../utils/apollo';
 import { GET_POSTS } from '../queries/getPosts.query';
-import Link from 'next/link';
-import { useQuery } from '@apollo/client';
 
-const Home = (props) => {
+const Home = () => {
 	return (
 		<div>
 			<Link href="/test">테스트 페이지</Link>
