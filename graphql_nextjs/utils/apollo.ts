@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
-import { ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
+import { AppProps } from 'next/app';
+
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
-import { AppProps } from 'next/app';
+
+import { ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
